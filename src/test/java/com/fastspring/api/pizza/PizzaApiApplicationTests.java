@@ -1,7 +1,6 @@
 package com.fastspring.api.pizza;
 
-import com.fastspring.api.pizza.model.Inventory;
-import com.fastspring.api.pizza.model.Topping;
+import com.fastspring.api.pizza.model.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Calendar;
+import java.util.Date;
+
 import static org.junit.Assert.assertTrue;
 
 
@@ -45,7 +48,6 @@ public class PizzaApiApplicationTests {
 
         long version = inventory.getVersion();
         // now perform an update
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         //update the quantity
@@ -64,7 +66,6 @@ public class PizzaApiApplicationTests {
 
     @Test
     public void testAddTopping() {
-
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         Topping newTopping = new Topping("NEW_TOPPING", 0.50);
@@ -76,5 +77,40 @@ public class PizzaApiApplicationTests {
         assertTrue(response.getStatusCode().value() == 200);
         assertTrue(addedTopping.getPrice() == 0.50);
     }
+
+    @Test
+    public void testMargaritaPizzaOrder() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        Customer customer = new Customer("Mukesh", "Kumar", "818-518-6807", "mkmanirajkumar@gmail.com");
+        Calendar cal = Calendar.getInstance();
+        Order order = new Order(cal.getTime(), customer, Variety.MARGARITA_PIZZA, CrustSize.LARGE, true, Cheese.MOZZARELLA, "MUSHROOM,CANADIAN_BACON", null);
+        HttpEntity<Order> entity = new HttpEntity<>(order, headers);
+        ResponseEntity<Order> response = restTemplate.exchange(
+                "/v1/order",
+                HttpMethod.POST, entity, Order.class);
+        Order newOrder = response.getBody();
+        assertTrue(response.getStatusCode().value() == 200);
+        double totalOrder = newOrder.getTotalPrice();
+        assertTrue(totalOrder == 29.00);
+    }
+
+    @Test
+    public void testRegukarPizzaOrder() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        Customer customer = new Customer("John", "Kalstrom", "805-999-9999", "john@gmail.com");
+        Calendar cal = Calendar.getInstance();
+        Order order = new Order(cal.getTime(), customer, Variety.REGULAR_CHEESE_PIZZA, CrustSize.LARGE, true, Cheese.AMERICAN, "MUSHROOM,CANADIAN_BACON", null);
+        HttpEntity<Order> entity = new HttpEntity<>(order, headers);
+        ResponseEntity<Order> response = restTemplate.exchange(
+                "/v1/order",
+                HttpMethod.POST, entity, Order.class);
+        Order newOrder = response.getBody();
+        assertTrue(response.getStatusCode().value() == 200);
+        double totalOrder = newOrder.getTotalPrice();
+        assertTrue(totalOrder == 22.50);
+    }
+
 
 }

@@ -3,11 +3,16 @@ package com.fastspring.api.pizza.model;
 import javax.persistence.*;
 
 @Entity
+@Table(
+        uniqueConstraints =
+        @UniqueConstraint(columnNames = {"firstName", "lastName"})
+)
 public class Customer {
 
     private String firstName;
     private String lastName;
     private String phoneNumber;
+    private String emailId;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,12 +22,21 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String phoneNumber) {
+    public Customer(String firstName, String lastName, String phoneNumber, String emailId) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
+        this.emailId = emailId;
     }
 
+
+    public String getEmailId() {
+        return emailId;
+    }
+
+    public void setEmailId(String emailId) {
+        this.emailId = emailId;
+    }
 
     public String getLastName() {
         return lastName;
@@ -48,7 +62,6 @@ public class Customer {
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
-
 
 
     public String getPhoneNumber() {

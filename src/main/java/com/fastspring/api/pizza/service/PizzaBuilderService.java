@@ -1,21 +1,23 @@
-package com.fastspring.api.pizza;
+package com.fastspring.api.pizza.service;
 
 import com.fastspring.api.pizza.model.*;
-import com.fastspring.api.pizza.service.ToppingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class PizzaBuilder {
+@Service
+public class PizzaBuilderService {
 
     private Pizza pizza;
     private ToppingService toppingService;
 
-
-    public PizzaBuilder(ToppingService toppingService) {
+    @Autowired
+    public PizzaBuilderService(ToppingService toppingService) {
         this.toppingService = toppingService;
     }
 
-    public PizzaBuilder withPizzaVariety(Variety pizzaVariety) {
+    public PizzaBuilderService withPizzaVariety(Variety pizzaVariety) {
 
         switch (pizzaVariety) {
             case REGULAR_CHEESE_PIZZA:
@@ -23,7 +25,7 @@ public class PizzaBuilder {
                 break;
 
             case MARGARITA_PIZZA:
-                this.pizza = new MargaritaPizza();
+                this.pizza = new MargaritaPizza(toppingService);
                 break;
 
             case PEPPERONI:
@@ -37,8 +39,8 @@ public class PizzaBuilder {
     }
 
     // customization of toppings
-    public PizzaBuilder withExtraTopping(List<Topping> toppings) {
-        for(Topping topping: toppings){
+    public PizzaBuilderService withExtraTopping(List<Topping> toppings) {
+        for (Topping topping : toppings) {
             pizza.addTopping(topping);
         }
 
@@ -46,20 +48,20 @@ public class PizzaBuilder {
     }
 
     // customization of cheese
-    public PizzaBuilder withCheese(Cheese cheese) {
+    public PizzaBuilderService withCheese(Cheese cheese) {
         //replace Base pizza variety  cheese with new customer choice here
         pizza.setCheeseType(cheese);
         return this;
     }
 
 
-    public PizzaBuilder withExtraCheese(boolean extraCheese) {
+    public PizzaBuilderService withExtraCheese(boolean extraCheese) {
         pizza.setExtraCheese(extraCheese);
         return this;
     }
 
     // customization of pizza size
-    public PizzaBuilder withCrustSize(CrustSize crustSize) {
+    public PizzaBuilderService withCrustSize(CrustSize crustSize) {
         pizza.setCrustSize(crustSize);
         return this;
     }

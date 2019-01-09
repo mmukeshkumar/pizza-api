@@ -6,15 +6,13 @@ public class PepperoniPizza extends Pizza {
 
     private double price = 5.50;
 
-    private ToppingService toppingService;
 
     public PepperoniPizza(ToppingService toppingService) {
-        super.setName(Variety.PEPPERONI.name());
-        super.addToBasePrice(price);
-        super.setSauceType(Sauce.CLASSIC_RED);
-        super.setCheeseType(Cheese.MOZZARELLA);
-        this.toppingService = toppingService;
-        super.addTopping(toppingService.getPepperoniTopping());
+        setName(Variety.PEPPERONI.name());
+        addToBasePrice(price);
+        setSauceType(Sauce.CLASSIC_RED);
+        setCheeseType(Cheese.MOZZARELLA);
+        addTopping(toppingService.getPepperoniTopping());
 
     }
 }

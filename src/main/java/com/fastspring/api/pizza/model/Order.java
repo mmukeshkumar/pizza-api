@@ -8,13 +8,10 @@ import java.util.Date;
 public class Order {
 
     private double totalPrice;
-    @Enumerated
     private Variety variety;
     private boolean extraCheese;
-    @Enumerated
     private CrustSize crustSize;
 
-    @Enumerated
     private Cheese cheese;
 
     private String extraToppings;
@@ -30,7 +27,7 @@ public class Order {
     private Date orderDate;
 
     @ManyToOne()
-    @JoinColumn(name = "customerId", nullable = false, updatable = false, unique = true)
+    @JoinColumn(name = "customerId", nullable = false, updatable = false)
     private Customer customer;
 
 
@@ -41,10 +38,12 @@ public class Order {
     public void setPromotionCode(String promotionCode) {
         this.promotionCode = promotionCode;
     }
+
+    @Enumerated(EnumType.STRING)
     public Cheese getCheese() {
         return cheese;
     }
-
+    @Enumerated(EnumType.STRING)
     public void setCheese(Cheese cheese) {
         this.cheese = cheese;
     }
@@ -57,10 +56,12 @@ public class Order {
         this.extraToppings = extraToppings;
     }
 
+    @Enumerated(EnumType.STRING)
     public Variety getVariety() {
         return variety;
     }
 
+    @Enumerated(EnumType.STRING)
     public void setVariety(Variety variety) {
         this.variety = variety;
     }
@@ -72,11 +73,11 @@ public class Order {
     public void setExtraCheese(boolean extraCheese) {
         this.extraCheese = extraCheese;
     }
-
+    @Enumerated(EnumType.STRING)
     public CrustSize getCrustSize() {
         return crustSize;
     }
-
+    @Enumerated(EnumType.STRING)
     public void setCrustSize(CrustSize crustSize) {
         this.crustSize = crustSize;
     }
@@ -85,8 +86,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(double totalPrice, Date orderDate, Customer customer, Variety variety, CrustSize crustSize, boolean extraCheese, Cheese cheese, String extraToppings, String promotionCode) {
-        this.totalPrice = totalPrice;
+    public Order(Date orderDate, Customer customer, Variety variety, CrustSize crustSize, boolean extraCheese, Cheese cheese, String extraToppings, String promotionCode) {
         this.orderDate = orderDate;
         this.customer = customer;
         this.variety = variety;

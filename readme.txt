@@ -53,7 +53,7 @@ curl --header "Content-Type: application/json" \
    "customer":{
       "firstName":"Mukesh",
       "lastName":"Kumar",
-      "emailId":"mukesh@compiletstatic\\.net",
+      "emailId":"mukesh@compiletstatic.net",
       "phoneNumber":"818-518-6807"
    },
    "crustSize": "LARGE",
@@ -79,6 +79,43 @@ http://localhost:8080/v1/order
     "lastName": "Kumar",
     "phoneNumber": "818-518-6807",
     "customerId": 3
+  }
+}
+
+curl --header "Content-Type: application/json" \
+--header "Accept: application/json" \
+--request POST \
+--data '{
+   "customer":{
+      "firstName":"John",
+      "lastName":"Kalstrom",
+      "emailId":"john@gmail.com",
+      "phoneNumber":"805-999-9999"
+   },
+   "crustSize": "MEDIUM",
+   "variety": "MARGARITA_PIZZA",
+   "cheese" : "AMERICAN",
+   "extraCheese": true,
+   "extraToppings": "MUSHROOM,CANADIAN_BACON",
+   "orderDate": "2019-01-09T08:00:00.000+0000"
+}' \
+http://localhost:8080/v1/order
+{
+  "totalPrice": 24.5,
+  "variety": "MARGARITA_PIZZA",
+  "extraCheese": true,
+  "crustSize": "MEDIUM",
+  "cheese": "AMERICAN",
+  "extraToppings": "MUSHROOM,CANADIAN_BACON",
+  "promotionCode": null,
+  "orderId": 6,
+  "orderDate": 1547020800000,
+  "customer": {
+    "firstName": "John",
+    "lastName": "Kalstrom",
+    "phoneNumber": "805-999-9999",
+    "emailId": "john@gmail.com",
+    "customerId": 4
   }
 }
 

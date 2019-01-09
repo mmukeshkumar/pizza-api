@@ -1,22 +1,18 @@
 package com.fastspring.api.pizza.model;
 
-import com.fastspring.api.pizza.model.Cheese;
-import com.fastspring.api.pizza.model.Pizza;
-import com.fastspring.api.pizza.model.Sauce;
 import com.fastspring.api.pizza.service.ToppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class NeapolitanPizza extends Pizza {
 
-    private double price = 3.50;
-    @Autowired
-    ToppingService toppingService;
+    private double price = 5.50;
 
-    public NeapolitanPizza() {
-        super.addToBasePrice(price);
-        super.setSauceType(Sauce.CLASSIC_RED);
-        super.setCheeseType(Cheese.MOZZARELLA);
-        super.addTopping(toppingService.getRomaTomatoTopping());
-        super.addTopping(toppingService.getOliveOilTopping());
+
+    public NeapolitanPizza(ToppingService toppingService) {
+        addToBasePrice(price);
+        setSauceType(Sauce.CLASSIC_RED);
+        setCheeseType(Cheese.MOZZARELLA);
+        addTopping(toppingService.getRomaTomatoTopping());
+        addTopping(toppingService.getOliveOilTopping());
     }
 }

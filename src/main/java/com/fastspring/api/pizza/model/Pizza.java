@@ -16,7 +16,7 @@ public abstract class Pizza {
 // calculates the total prize based on all the customizations,
 // the promotion discount percentage will applied on top of this total prize in the Order Controller
     public double getTotalPrize() {
-        double totalPrice = basePrice + crustSize.getPrice() + CheeseType.getPrice();
+        double totalPrice = basePrice + sauce.getPrice() + crustSize.getPrice() + CheeseType.getPrice();
         if (extraCheese) {
             totalPrice += 2.0;
         }
