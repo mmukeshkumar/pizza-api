@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.fastspring.api.pizza.respository.ToppingRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class ToppingController {
@@ -29,10 +27,12 @@ public class ToppingController {
 
     @RequestMapping("/v1/topping")
     public @ResponseBody
-    List<Topping> getAllToppings() {
+    Map<String, List<Topping>> getAllToppings() {
+        Map<String, List<Topping>> result = new HashMap();
         List<Topping> toppings = new ArrayList();
         toppingRepository.findAll().forEach((Topping item) -> toppings.add(item));
-        return toppings;
+        result.put("toppings", toppings);
+        return result;
     }
 
     @RequestMapping("/v1/topping/{id}")

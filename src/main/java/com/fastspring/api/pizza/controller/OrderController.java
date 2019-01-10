@@ -11,9 +11,7 @@ import com.fastspring.api.pizza.service.ToppingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 public class OrderController {
@@ -80,10 +78,14 @@ public class OrderController {
 
     @RequestMapping("/v1/order")
     public @ResponseBody
-    Iterable<Order> getAllOrders() {
-        return orderRepository.findAll();
-
+    Map<String, List<Order>> getAllOrders() {
+        Map<String, List<Order>> result = new HashMap();
+        List<Order> orders = new ArrayList();
+        orderRepository.findAll().forEach((Order item) -> orders.add(item));
+        result.put("orders", orders);
+        return result;
     }
+
 
     @RequestMapping("/v1/order/{id}")
     public @ResponseBody
