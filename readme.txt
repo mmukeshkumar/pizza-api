@@ -1,3 +1,7 @@
+Building and running the tests:
+---------------------------------
+To build and run tests use this command:
+gradlew clean test
 
 Building and running the web app:
 ---------------------------------
