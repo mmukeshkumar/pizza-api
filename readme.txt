@@ -5,10 +5,6 @@ gradlew clean test
 
 Building and running the web app:
 ---------------------------------
-To build and run tests use this command:
-gradlew clean test
-
-
 Windows:
 -----------
 @ECHO OFF
@@ -24,11 +20,8 @@ LINUX;
 export JAVA_HOME=/usr/local/java_installs/jdk-8u191
 export JAVA_PATH=$JAVA_HOME/bin
 export PATH=$JAVA_PATH:$PATH
-
 chmod +x grailsw
-
 ./gradlew clean build && java -jar build/libs/pizza-api-0.0.1-SNAPSHOT.jar
-
 
 How to connect to the in-memory Database through browser to the see the tables and data: ?
 --------------------------------------------------------------------------------
